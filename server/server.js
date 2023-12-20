@@ -13,11 +13,14 @@ app.use(cors());
 
 dbConnect();
 
+const userRoute = require("./routes/UserRoute.js")
 const DataRoute = require("./routes/DataRoute.js")
 
 
 
+app.use("/api/user", userRoute);
 app.use("/api/data", DataRoute);
+
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001;

@@ -5,19 +5,32 @@ import './App.css'
 import TodoList from './components/TodoList'
 import { Box, Container } from '@mui/material'
 import AddData from './components/addData'
+import UserContext from './context/UserContext'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './Pages/Home'
+import Login from './components/Login'
+import Signup from './components/Signup'
+import PrivateRoute from './PrivateRoute'
+import Header from './components/Header'
 
 
 function App() {
-  const [addStatus, setAddStatus] = useState(true)
+
 
   return (
     <>
-      <Container>
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          <AddData status={{ addStatus, setAddStatus }} />
-        </Box>
-        <TodoList addStatus={addStatus} status={{ addStatus, setAddStatus }} />
-      </Container>
+      <UserContext>
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route element={<Home />} path='/' />
+            </Route>
+            <Route element={<Login />} path='/login' />
+            <Route element={<Signup />} path='/signup' />
+          </Routes>
+        </BrowserRouter>
+      </UserContext>
     </>
   )
 }
